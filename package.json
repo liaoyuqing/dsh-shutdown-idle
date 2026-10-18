@@ -1,0 +1,48 @@
+{
+  "name": "dsh-shutdown-idle",
+  "version": "1.0.0",
+  "private": false,
+  "type": "module",
+  "description": "DSH plugin: shuts down (or restarts/hiberbrates/locks) once every session and background job has gone idle.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liaoyuqing/dsh-shutdown-idle.git"
+  },
+  "homepage": "https://github.com/liaoyuqing/dsh-shutdown-idle#readme",
+  "bugs": {
+    "url": "https://github.com/liaoyuqing/dsh-shutdown-idle/issues"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "shutdown",
+    "idle"
+  ],
+  "main": "./host.v2.mjs",
+  "exports": {
+    ".": "./host.v2.mjs",
+    "./client": "./client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "host.v2.mjs",
+    "host.v1.mjs",
+    "client.js",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true
+    }
+  }
+}

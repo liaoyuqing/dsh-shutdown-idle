@@ -1,0 +1,15 @@
+- insert:
+    - id: shutdown-idle
+      name: dsh-shutdown-idle
+      config:
+        # 会话全部结束后要执行的动作：shutdown / restart / hibernate / sleep / lock / logoff / none
+        # （none = 只记录不执行，用于先验证判定链路；界面与 settings.json 可覆盖这里的初始值）
+        action: shutdown
+        # 全部空闲后先确认这么久，避免回合间隙被当成「结束」
+        settleSeconds: 20
+        # 确认空闲后给出的可取消倒计时
+        countdownSeconds: 60
+        # 必须先观察到至少一次会话运行，才允许执行（防止刚开启就关机）
+        requireActivity: true
+        # 后台任务（jobs，即界面上的「后台任务」）在跑时也算占用；关掉后完全不再检测后台任务
+        considerJobs: true
