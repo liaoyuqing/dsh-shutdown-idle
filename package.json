@@ -1,9 +1,9 @@
 {
   "name": "dsh-shutdown-idle",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": false,
   "type": "module",
-  "description": "DSH plugin: shuts down (or restarts/hiberbrates/locks) once every session and background job has gone idle.",
+  "description": "DSH plugin: runs a power action (shutdown / restart / hibernate / sleep / lock / logoff) once every Agent session and background job has gone idle. The toggle never survives a host restart, and the countdown is always cancellable.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -20,22 +20,27 @@
     "shutdown",
     "idle"
   ],
-  "main": "./host.v2.mjs",
+  "main": "./host.mjs",
   "exports": {
-    ".": "./host.v2.mjs",
+    ".": "./host.mjs",
     "./client": "./client.js",
     "./cordis.patch.yml": "./cordis.patch.yml",
     "./package.json": "./package.json"
   },
   "files": [
-    "host.v2.mjs",
-    "host.v1.mjs",
+    "host.mjs",
     "client.js",
     "cordis.patch.yml",
     "README.md",
-    "README.zh.md",
+    "README.en.md",
     "LICENSE"
   ],
+  "scripts": {
+    "check": "node scripts/validate.mjs"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"

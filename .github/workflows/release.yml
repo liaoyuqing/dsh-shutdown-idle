@@ -1,0 +1,33 @@
+name: release
+
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  tarball:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/validate.mjs
+      # Asset name carries NO version, so a `latest/download/<fixed name>.tgz`
+      # URL keeps working across releases.
+      - name: Pack
+        run: |
+          mkdir -p dist
+          npm pack --pack-destination dist
+          mv dist/*.tgz dist/dsh-shutdown-idle.tgz
+      - name: Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ github.ref_name }}" \
+            --title "dsh-shutdown-idle ${{ github.ref_name }}" \
+            --generate-notes \
+            --latest \
+            dist/dsh-shutdown-idle.tgz

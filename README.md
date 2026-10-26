@@ -2,6 +2,20 @@
 
 DSH 插件：**开启后，等所有会话都结束（没有任何 Agent 在跑）并保持空闲，自动执行关机**（也可选重启 / 休眠 / 睡眠 / 锁定 / 注销）。
 
+English README: [README.en.md](./README.en.md)
+
+## 安装
+
+```sh
+dsh plugin add liaoyuqing/dsh-shutdown-idle
+```
+
+或从源码安装：
+
+```sh
+dsh plugin add link:/path/to/dsh-shutdown-idle
+```
+
 ## 用起来
 
 1. 打开「设置 → 会话结束后关机」，点 **开启**。
@@ -48,8 +62,8 @@ DSH 插件：**开启后，等所有会话都结束（没有任何 Agent 在跑�
 
 ## 字段一览
 
-- `host.v2.mjs` — Host 半：状态机、HTTP 接口、命令派发、兜底页面。（`host.v1.mjs` 为上一版，保留以便回滚。）
+- `host.mjs` — Host 半：状态机、HTTP 接口、命令派发、兜底页面。
 - `client.js` — 浏览器半：设置页分区 + `shell.overlay` 浮层卡片（可拖动，`useDraggable` 负责指针捕获、边界夹取与位置持久化）。
 - `cordis.patch.yml` — bundle 补丁：插入插件行与初始配置。
 
-升级宿主半代码时换文件名（`host.v1.mjs` → `host.v2.mjs`）并同步 `package.json` 的 `main` / `exports`：config-only 热重载不会重新加载同一路径的模块。
+升级宿主半代码后就地改 `host.mjs` 并同步 `package.json` 的 `main` / `exports`：config-only 热重载不会重新加载同一路径的模块，改完需要让 Loader 重新 import（重启该 profile，或临时改补丁行里该条目的 `id` 再改回）。
